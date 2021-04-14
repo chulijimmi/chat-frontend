@@ -1,4 +1,4 @@
-import { FETCH_DATA } from "../actions/globalActions";
+import { FETCH_DATA } from '../actions/globalActions';
 
 const initialState = {
   loading: false,

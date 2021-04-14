@@ -3,7 +3,7 @@ const round = (number) => Math.round(number * 100) / 100;
 const monitorReducerEnhancer = (createStore) => (
   reducer,
   initialState,
-  enhancer
+  enhancer,
 ) => {
   const monitoredReducer = (state, action) => {
     const start = Date.now();
@@ -11,7 +11,7 @@ const monitorReducerEnhancer = (createStore) => (
     const end = Date.now();
     const diff = round(end - start);
 
-    console.log("reducer process time:", diff);
+    console.log('reducer process time:', diff);
 
     return newState;
   };

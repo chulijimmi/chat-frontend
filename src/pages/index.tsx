@@ -1,18 +1,23 @@
-import React from "react"
-import { PageProps } from "gatsby"
-import SEO from "../components/seo"
-import Layout from "../components/Layout"
-import Card from "../components/Card"
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import React from 'react';
+import { PageProps } from 'gatsby';
+import SEO from '../components/seo';
+import Layout from '../components/Layout';
+import Card from '../components/core/Card';
+import Footer from '../components/Footer';
+import JoinForm from '../components/JoinForm';
 
 function App(props: PageProps) {
-    return (
-        <>
-        <SEO />
-        <Layout>
-        <Card><p>Hello</p></Card>
-        </Layout>
-        </>
-    )
+  return (
+    <>
+      <SEO />
+      <Layout>
+        <JoinForm />
+      </Layout>
+      <Footer />
+    </>
+  );
 }
 
-export default App
+export default App;

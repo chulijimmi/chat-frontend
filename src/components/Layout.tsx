@@ -1,20 +1,20 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-
+import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+import '../styled/Layout.css';
 interface LayoutProps {
-    readonly children?: React.ReactNode | readonly React.ReactNode[]
+  readonly children?: React.ReactNode | readonly React.ReactNode[];
 }
 
 interface HeaderData {
-    site: {
-        siteMetadata: {
-            title: string
-        }
-    }
+  site: {
+    siteMetadata: {
+      title: string;
+    };
+  };
 }
 
 const Layout = ({ children }: LayoutProps) => {
-    const data: HeaderData = useStaticQuery(graphql`
+  const data: HeaderData = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
         siteMetadata {
@@ -22,13 +22,13 @@ const Layout = ({ children }: LayoutProps) => {
         }
       }
     }
-    `)
+  `);
 
-    return(
-        <>
-        <main>{children}</main>
-        </>
-    )
-}
+  return (
+    <>
+      <main>{children}</main>
+    </>
+  );
+};
 
-export default Layout
+export default Layout;

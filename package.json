@@ -13,10 +13,11 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
+    "cy:open": "cypress open --port 8080",
+    "cy:run": "cypress run --port 8080",
     "test:e2e": "start-server-and-test develop http://localhost:8000 cy:open",
-    "test:e2e:ci": "start-server-and-test develop http://localhost:8000 cy:run"
+    "test:e2e:ci": "start-server-and-test develop http://localhost:8000 cy:run",
+    "fix:prettier": "npx prettier --print-width 80 --semi --single-quote --trailing-comma all --write src/*"
   },
   "dependencies": {
     "@emotion/react": "^11.1.5",
@@ -34,6 +35,8 @@
     "socket.io-client": "^4.0.1"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^7.0.5",
+    "@testing-library/react": "^11.2.6",
     "cypress": "^7.0.1",
     "redux-devtools-extension": "^2.13.9",
     "start-server-and-test": "^1.12.1"
