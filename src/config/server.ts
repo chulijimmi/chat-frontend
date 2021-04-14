@@ -1,5 +1,8 @@
 import socketIOClient from 'socket.io-client';
-const server = 'http://localhost:5000';
+const server =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000'
+    : 'https://chat-backend-jimmi.herokuapp.com';
 const room = socketIOClient(`${server}/room`);
 const api = `${server}/api`;
 const debug = (stage, log) => {
