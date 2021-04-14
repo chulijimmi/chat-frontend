@@ -1,9 +1,15 @@
 /** @jsx jsx */
-import { ChangeEvent, FunctionComponent, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FunctionComponent,
+  useEffect,
+  useState,
+} from 'react';
 import { jsx } from '@emotion/react';
 import Colors from '../../styled/Colors';
 import { Container, Conversation, SendMessageForm } from './ChatArea';
 import TextInput from '../core/TextInput';
+import server from '../../config/server';
 
 const RightContainer: FunctionComponent = () => {
   const [heightSendMessageForm, setHeightSendMessageForm] = useState(80);
@@ -11,6 +17,13 @@ const RightContainer: FunctionComponent = () => {
   const sendMessage = (message) => {
     console.log('send_message', message);
   };
+
+  // Receive welcome message
+  React.useEffect(() => {
+    server.room.on(`room:welcome`, (response) => {
+      console.log(`response:welcome`, response);
+    });
+  }, []);
 
   return (
     <div

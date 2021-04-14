@@ -18,26 +18,30 @@ const JoinFoorm = () => {
   const [errorMessage, setErrorMessage] = React.useState<string>('');
 
   const joinChat = (): void => {
-    const payload = { userName, roomName };
-    setLoading(true);
-    setErrorMessage('');
-    server.room.emit('room:join', payload, (response) => {
-      if (response.error) {
-        setLoading(false);
-        setErrorMessage(response.message);
-        server.debug('error:room:join', response);
-      } else {
-        setLoading(false);
-        server.debug('error:room:join', response);
-        navigate('chat');
-      }
-    });
+    if (userName === '') {
+      setErrorMessage('Please input your username');
+    } else if (roomName === '') {
+      setErrorMessage('Room is required');
+    } else {
+      const payload = { userName, roomName };
+      setLoading(true);
+      setErrorMessage('');
+      server.room.emit('room:join', payload, (response) => {
+        if (response.error) {
+          setLoading(false);
+          setErrorMessage(response.error.details[0].message);
+        } else {
+          setLoading(false);
+          navigate('chat');
+        }
+      });
+    }
   };
 
   // Receiving room list from server
   const getRoom = () => {
     server.room.emit('room:list', (response) => {
-      server.debug('response_room:list', response);
+      server.debug('response:room:list', response);
     });
   };
 
@@ -46,14 +50,17 @@ const JoinFoorm = () => {
   }, []);
 
   // Disconnect from server
-  const leaveRoom = () => {
-    server.room.emit('root:leave', (response) =>
-      server.debug('response_room_leave', response),
-    );
-  };
-
   React.useEffect(() => {
-    leaveRoom();
+    server.room.emit('room:leave', (response) =>
+      server.debug('response:room:leave', response),
+    );
+  }, []);
+
+  // Receive welcome message
+  React.useEffect(() => {
+    server.room.on(`room:welcome`, (response) => {
+      console.log(`response:welcome`, response);
+    });
   }, []);
 
   return (
