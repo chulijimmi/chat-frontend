@@ -4,10 +4,11 @@ const white = '#FFFFFF';
 const grey = '#bebebe';
 const greyDark = '#848484';
 const greyLight = '#f8f8f8';
-const primary = '#c62828';
-const primaryDark = '#8e0000';
-const primaryLight = '#ff5f52';
-const greyBlue = '#acbec6';
+const greyDarkLight = '#ced6d9';
+const primary = '#691f97';
+const primaryDark = '#200332';
+const primaryLight = '#9b28e3';
+const alert = '#d13b3b';
 export default {
   dark,
   darkLight,
@@ -18,5 +19,6 @@ export default {
   primary,
   primaryDark,
   primaryLight,
-  greyBlue,
+  greyDarkLight,
+  alert,
 };

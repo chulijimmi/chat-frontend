@@ -46,7 +46,7 @@ const Button = React.forwardRef<Ref, Props>((props, ref) => {
       onClick={props.onClick}
       data-test-id={props.testId}
     >
-      {props.children}
+      {props.loading ? 'loading' : props.children}
     </button>
   );
 });

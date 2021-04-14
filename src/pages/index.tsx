@@ -4,7 +4,6 @@ import React from 'react';
 import { PageProps } from 'gatsby';
 import SEO from '../components/seo';
 import Layout from '../components/Layout';
-import Card from '../components/core/Card';
 import Footer from '../components/Footer';
 import JoinForm from '../components/JoinForm';
 
