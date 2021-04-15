@@ -8,6 +8,13 @@ import Card from './core/Card';
 import TextInput from './core/TextInput';
 import { navigate } from 'gatsby';
 import server from '../config/server';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../state/typesRedux';
+import { joinRoomActions } from '../state/actions/chatActions';
+import {
+  getUserJoinStorage,
+  setUserJoinStorage,
+} from '../../utils/localStorage';
 
 const JoinFoorm = () => {
   const [userName, setUserName] = React.useState<string>('');
@@ -16,25 +23,40 @@ const JoinFoorm = () => {
   const refRoomName = React.useRef();
   const [loading, setLoading] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>('');
+  const dispatch: AppDispatch = useDispatch();
 
-  const joinChat = (): void => {
+  React.useEffect(() => {
+    const data = getUserJoinStorage();
+    if (data?.user?.id) {
+      doJoinRoom(data.user.userName, data.room.roomName);
+    }
+  }, []);
+
+  const doJoinRoom = (userName: string, roomName: string): void => {
+    const payload = { userName, roomName };
+    server.room.emit('room:join', payload, (response) => {
+      if (response.error) {
+        setLoading(false);
+        setErrorMessage(response.error.details[0].message);
+      } else {
+        server.debug('response:join', response);
+        setLoading(false);
+        dispatch(joinRoomActions(payload.roomName));
+        setUserJoinStorage(response.data);
+        navigate('chat');
+      }
+    });
+  };
+
+  const joinRoom = (): void => {
     if (userName === '') {
       setErrorMessage('Please input your username');
     } else if (roomName === '') {
       setErrorMessage('Room is required');
     } else {
-      const payload = { userName, roomName };
       setLoading(true);
       setErrorMessage('');
-      server.room.emit('room:join', payload, (response) => {
-        if (response.error) {
-          setLoading(false);
-          setErrorMessage(response.error.details[0].message);
-        } else {
-          setLoading(false);
-          navigate('chat');
-        }
-      });
+      doJoinRoom(userName, roomName);
     }
   };
 
@@ -110,7 +132,7 @@ const JoinFoorm = () => {
             loading={loading}
             round={'small'}
             width={'50%'}
-            onClick={() => joinChat()}
+            onClick={() => joinRoom()}
             testId={'buttonJoin'}
           >
             <span>Login</span>

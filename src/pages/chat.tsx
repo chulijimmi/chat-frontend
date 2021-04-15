@@ -7,8 +7,13 @@ import Layout from '../components/Layout';
 import LeftContainer from '../components/room/LeftContainer';
 import Colors from '../styled/Colors';
 import RightContainer from '../components/room/RightContainer';
+import { RootState } from '../state/typesRedux';
+import { useSelector } from 'react-redux';
+import server from '../config/server';
 
 function Chat(props: PageProps) {
+  const state: RootState = useSelector((state) => state);
+  server.debug('state', state);
   return (
     <>
       <SEO title={'Free chat room'} />

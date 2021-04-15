@@ -10,18 +10,62 @@ import Colors from '../../styled/Colors';
 import { Container, Conversation, SendMessageForm } from './ChatArea';
 import TextInput from '../core/TextInput';
 import server from '../../config/server';
+import { AppDispatch, RootState } from '../../state/typesRedux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateConversation } from '../../state/actions/chatActions';
+import moment from 'moment';
+import Message from './Message';
+import { getUserJoinStorage } from '../../../utils/localStorage';
 
 const RightContainer: FunctionComponent = () => {
   const [heightSendMessageForm, setHeightSendMessageForm] = useState(80);
+  const dispatch: AppDispatch = useDispatch();
+  const data = getUserJoinStorage();
+  const state: RootState = useSelector((state) => state);
+  const { chat } = state;
 
   const sendMessage = (message) => {
-    console.log('send_message', message);
+    server.room.emit(
+      'room:conversation',
+      { user: data.user, room: data.room, message },
+      (response) => {
+        console.log('response', response);
+      },
+    );
   };
+
+  // Fetch cache when in top stage
+  React.useEffect(() => {
+    server.room.emit(
+      'room:conversation:all',
+      { room: data.room },
+      (response) => {
+        console.log('response:conversation:all', response);
+        response.map((item) =>
+          dispatch(
+            updateConversation(
+              item.user.userName,
+              item.message,
+              item.createdAt,
+            ),
+          ),
+        );
+      },
+    );
+  }, []);
 
   // Receive welcome message
   React.useEffect(() => {
     server.room.on(`room:welcome`, (response) => {
       console.log(`response:welcome`, response);
+    });
+  }, []);
+
+  // Receive typing in room
+  React.useEffect(() => {
+    server.room.on('room:conversation:typing', (response) => {
+      console.log('response:conversation:typing', response);
+      dispatch(updateConversation(response.from, response.says, new Date()));
     });
   }, []);
 
@@ -34,16 +78,27 @@ const RightContainer: FunctionComponent = () => {
       }}
     >
       <Container>
-        <Conversation
-          heightSendMessageForm={heightSendMessageForm}
-        ></Conversation>
+        <Conversation heightSendMessageForm={heightSendMessageForm}>
+          {chat &&
+            chat?.conversation &&
+            chat?.conversation.map((item, index) => {
+              return (
+                <Message
+                  key={index.toString()}
+                  from={item?.from}
+                  message={item?.message}
+                  createdAt={item?.createdAt}
+                  userName={data?.user?.userName}
+                />
+              );
+            })}
+        </Conversation>
         <SendMessageForm
           action={(message) => {
             sendMessage(message);
             setHeightSendMessageForm(80);
           }}
           setHeightConversation={(height) => {
-            console.log('set height conversation', height);
             setHeightSendMessageForm(height);
           }}
         />

@@ -9,6 +9,7 @@ const primary = '#691f97';
 const primaryDark = '#200332';
 const primaryLight = '#9b28e3';
 const alert = '#d13b3b';
+const secondary = '#ea6110';
 export default {
   dark,
   darkLight,
@@ -21,4 +22,5 @@ export default {
   primaryLight,
   greyDarkLight,
   alert,
+  secondary,
 };

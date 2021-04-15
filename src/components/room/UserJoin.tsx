@@ -5,6 +5,7 @@ import Colors from '../../styled/Colors';
 
 interface UserJoinProps {
   username: string;
+  self: boolean;
 }
 
 interface UserAvatarProps extends UserJoinProps {
@@ -14,6 +15,7 @@ interface UserAvatarProps extends UserJoinProps {
 export const UserAvatar: FunctionComponent<UserAvatarProps> = ({
   username,
   size,
+  self,
 }) => {
   return (
     <div
@@ -21,7 +23,7 @@ export const UserAvatar: FunctionComponent<UserAvatarProps> = ({
         width: size,
         height: size,
         borderRadius: size,
-        background: Colors.darkLight,
+        background: self ? Colors.secondary : Colors.primaryDark,
         alignItems: 'center',
         justifyContent: 'center',
         display: 'flex',
@@ -34,7 +36,7 @@ export const UserAvatar: FunctionComponent<UserAvatarProps> = ({
   );
 };
 
-const UserJoin: FunctionComponent<UserJoinProps> = ({ username }) => {
+const UserJoin: FunctionComponent<UserJoinProps> = ({ username, self }) => {
   const heightContainer = 30;
   return (
     <div
@@ -48,7 +50,7 @@ const UserJoin: FunctionComponent<UserJoinProps> = ({ username }) => {
         boxSizing: 'border-box',
       }}
     >
-      <UserAvatar username={username} size={heightContainer} />
+      <UserAvatar username={username} size={heightContainer} self={self} />
       <div
         css={{
           width: `calc(100% - ${heightContainer}px)`,

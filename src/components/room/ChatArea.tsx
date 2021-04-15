@@ -26,9 +26,10 @@ export const Conversation: FunctionComponent<ConversationProps> = ({
   return (
     <div
       css={{
-        width: '100%',
+        width: 'calc(100% - 20)',
+        padding: 10,
         height: `calc(100% - ${heightSendMessageForm}px)`,
-        background: 'yellow',
+        background: Colors.greyLight,
         overflowX: 'hidden',
         overflowY: 'scroll',
       }}
