@@ -1,26 +1,19 @@
 /** @jsx jsx */
-import React, {
-  ChangeEvent,
-  FunctionComponent,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { jsx } from '@emotion/react';
 import Colors from '../../styled/Colors';
 import { Container, Conversation, SendMessageForm } from './ChatArea';
-import TextInput from '../core/TextInput';
 import server from '../../config/server';
 import { AppDispatch, RootState } from '../../state/typesRedux';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateConversation } from '../../state/actions/chatActions';
-import moment from 'moment';
 import Message from './Message';
-import { getUserJoinStorage } from '../../../utils/localStorage';
 
 const RightContainer: FunctionComponent = () => {
   const [heightSendMessageForm, setHeightSendMessageForm] = useState(80);
   const dispatch: AppDispatch = useDispatch();
-  const data = getUserJoinStorage();
+  const [data, setData] = useState<any>();
+
   const state: RootState = useSelector((state) => state);
   const { chat } = state;
 
@@ -33,6 +26,10 @@ const RightContainer: FunctionComponent = () => {
       },
     );
   };
+
+  React.useEffect(() => {
+    setData(localStorage.getItem('user:join'));
+  }, []);
 
   // Fetch cache when in top stage
   React.useEffect(() => {

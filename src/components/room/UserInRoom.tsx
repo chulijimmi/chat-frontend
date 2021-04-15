@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { jsx } from '@emotion/react';
 import { FunctionComponent } from 'react';
-import { getUserJoinStorage } from '../../../utils/localStorage';
 import server from '../../config/server';
 import Colors from '../../styled/Colors';
 import UserJoin from './UserJoin';
@@ -12,7 +11,10 @@ import { updateOnlineUser } from '../../state/actions/chatActions';
 import moment from 'moment';
 
 const UserInRoom: FunctionComponent = () => {
-  const data = getUserJoinStorage();
+  const [data, setData] = useState<any>();
+  useEffect(() => {
+    setData(localStorage.getItem('user:join'));
+  }, []);
   const dispatch: AppDispatch = useDispatch();
   const state: RootState = useSelector((state) => state);
   const { chat } = state;

@@ -11,10 +11,7 @@ import server from '../config/server';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../state/typesRedux';
 import { joinRoomActions } from '../state/actions/chatActions';
-import {
-  getUserJoinStorage,
-  setUserJoinStorage,
-} from '../../utils/localStorage';
+import { setUserJoinStorage } from '../../utils/localStorage';
 
 const JoinFoorm = () => {
   const [userName, setUserName] = React.useState<string>('');
@@ -24,9 +21,13 @@ const JoinFoorm = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>('');
   const dispatch: AppDispatch = useDispatch();
+  const [data, setData] = React.useState<any>();
 
   React.useEffect(() => {
-    const data = getUserJoinStorage();
+    setData(localStorage.getItem('user:join'));
+  }, []);
+
+  React.useEffect(() => {
     if (data?.user?.id) {
       doJoinRoom(data.user.userName, data.room.roomName);
     }

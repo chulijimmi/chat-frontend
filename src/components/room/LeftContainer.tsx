@@ -1,14 +1,16 @@
 /** @jsx jsx */
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { jsx } from '@emotion/react';
 import Colors from '../../styled/Colors';
 import RoomTitle from './RoomTitle';
 import UserJoin from './UserJoin';
-import { getUserJoinStorage } from '../../../utils/localStorage';
 import UserInRoom from './UserInRoom';
 
 const LeftContainer: FunctionComponent = () => {
-  const data = getUserJoinStorage();
+  const [data, setData] = useState<any>();
+  useEffect(() => {
+    setData(localStorage.getItem('user:join'));
+  }, []);
   return (
     <div
       css={{

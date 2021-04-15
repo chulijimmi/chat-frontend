@@ -1,8 +1,13 @@
+import React from 'react';
+
 export const getUserJoinStorage = () => {
-  const data = window.localStorage.getItem('user:join');
-  return JSON.parse(data);
+  const [key, setKey] = React.useState<any>({});
+  React.useEffect(() => {
+    setKey(localStorage.getItem('user:join'));
+  }, []);
+  return JSON.parse(key);
 };
 
 export const setUserJoinStorage = (data) => {
-  window.localStorage.setItem('user:join', JSON.stringify(data));
+  localStorage.setItem('user:join', JSON.stringify(data));
 };

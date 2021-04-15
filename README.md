@@ -19,7 +19,7 @@ Troubleshoot:
 If there is an error related with gatsby framework, you can try
 
 ```bash
-gatsby clean
+npm run clean
 ```
 
 ## Test

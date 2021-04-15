@@ -30,7 +30,7 @@ export const UserAvatar: FunctionComponent<UserAvatarProps> = ({
       }}
     >
       <span css={{ fontWeight: 'bold', color: Colors.white }}>
-        {username.charAt(0).toUpperCase()}
+        {username && username?.charAt(0).toUpperCase()}
       </span>
     </div>
   );
