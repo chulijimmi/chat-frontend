@@ -29,7 +29,7 @@ const RightContainer: FunctionComponent = () => {
       'room:conversation',
       { user: data.user, room: data.room, message },
       (response) => {
-        console.log('response', response);
+        server.debug('response', response);
       },
     );
   };
@@ -40,7 +40,7 @@ const RightContainer: FunctionComponent = () => {
       'room:conversation:all',
       { room: data.room },
       (response) => {
-        console.log('response:conversation:all', response);
+        server.debug('response:conversation:all', response);
         response.map((item) =>
           dispatch(
             updateConversation(
@@ -57,14 +57,14 @@ const RightContainer: FunctionComponent = () => {
   // Receive welcome message
   React.useEffect(() => {
     server.room.on(`room:welcome`, (response) => {
-      console.log(`response:welcome`, response);
+      server.debug(`response:welcome`, response);
     });
   }, []);
 
   // Receive typing in room
   React.useEffect(() => {
     server.room.on('room:conversation:typing', (response) => {
-      console.log('response:conversation:typing', response);
+      server.debug('response:conversation:typing', response);
       dispatch(updateConversation(response.from, response.says, new Date()));
     });
   }, []);

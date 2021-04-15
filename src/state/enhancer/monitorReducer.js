@@ -1,3 +1,5 @@
+import server from '../../config/server';
+
 const round = (number) => Math.round(number * 100) / 100;
 
 const monitorReducerEnhancer = (createStore) => (
@@ -11,7 +13,7 @@ const monitorReducerEnhancer = (createStore) => (
     const end = Date.now();
     const diff = round(end - start);
 
-    console.log('reducer process time:', diff);
+    server.debug('reducer process time:', diff);
 
     return newState;
   };

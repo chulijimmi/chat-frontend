@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/react';
 import moment from 'moment';
 import { FunctionComponent } from 'react';
+import server from '../../config/server';
 import Colors from '../../styled/Colors';
 
 interface MessageProps {
@@ -17,7 +18,7 @@ const Message: FunctionComponent<MessageProps> = ({
   createdAt,
   userName,
 }) => {
-  console.log('data', { from, userName });
+  server.debug('data', { from, userName });
   return (
     <div
       css={{

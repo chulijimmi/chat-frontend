@@ -81,7 +81,7 @@ const JoinFoorm = () => {
   // Receive welcome message
   React.useEffect(() => {
     server.room.on(`room:welcome`, (response) => {
-      console.log(`response:welcome`, response);
+      server.debug(`response:welcome`, response);
     });
   }, []);
 
