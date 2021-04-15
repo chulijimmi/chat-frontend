@@ -3,6 +3,7 @@
 ## Overview
 
 chat-frontend this web app build with gatsby.
+Check demo of this project by this link https://hungry-nobel-29f7e8.netlify.app/
 
 Development guide:
 
@@ -14,9 +15,24 @@ npm run develop
 
 2. Make sure your chat-backend project running in port 5000 or other whise you can change configuration on config/server.ts
 
+Troubleshoot:
+If there is an error related with gatsby framework, you can try
+
+```bash
+gatsby clean
+```
+
 ## Test
 
-This project using cypress library for end to end test, you can run the test by command npm run test:e2e
+This project using cypress library for end to end test, you can run the test by command
+
+```bash
+npm run test:e2e
+```
+
+## Deployment
+
+This project deploy to netfily, there is a documentation to deploy gatsby in netifly cloud
 
 ## Reference
 
@@ -33,3 +49,5 @@ This project using cypress library for end to end test, you can run the test by 
 - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
 - [Cypress](https://docs.cypress.io/guides/overview/why-cypress)
+
+- [Netifly](https://www.netlify.com/blog/2016/02/24/a-step-by-step-guide-gatsby-on-netlify/)
