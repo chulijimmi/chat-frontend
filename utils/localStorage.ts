@@ -3,7 +3,8 @@ import React from 'react';
 export const getUserJoinStorage = () => {
   const [key, setKey] = React.useState<any>({});
   React.useEffect(() => {
-    setKey(localStorage.getItem('user:join'));
+    const cache = localStorage.getItem('user:join');
+    setKey(JSON.parse(cache));
   }, []);
   return JSON.parse(key);
 };

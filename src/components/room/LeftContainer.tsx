@@ -9,7 +9,8 @@ import UserInRoom from './UserInRoom';
 const LeftContainer: FunctionComponent = () => {
   const [data, setData] = useState<any>();
   useEffect(() => {
-    setData(localStorage.getItem('user:join'));
+    const cache: any = localStorage.getItem('user:join');
+    setData(JSON.parse(cache));
   }, []);
   return (
     <div

@@ -21,15 +21,13 @@ const JoinFoorm = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string>('');
   const dispatch: AppDispatch = useDispatch();
-  const [data, setData] = React.useState<any>();
 
   React.useEffect(() => {
-    setData(localStorage.getItem('user:join'));
-  }, []);
-
-  React.useEffect(() => {
+    const cache: any = localStorage.getItem('user:join');
+    const data = JSON.parse(cache);
+    console.log('data', data);
     if (data?.user?.id) {
-      doJoinRoom(data.user.userName, data.room.roomName);
+      doJoinRoom(data?.user?.userName, data?.room?.roomName);
     }
   }, []);
 

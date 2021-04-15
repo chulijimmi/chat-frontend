@@ -20,7 +20,7 @@ const RightContainer: FunctionComponent = () => {
   const sendMessage = (message) => {
     server.room.emit(
       'room:conversation',
-      { user: data.user, room: data.room, message },
+      { user: data?.user, room: data?.room, message },
       (response) => {
         server.debug('response', response);
       },
@@ -28,14 +28,15 @@ const RightContainer: FunctionComponent = () => {
   };
 
   React.useEffect(() => {
-    setData(localStorage.getItem('user:join'));
+    const cache = localStorage.getItem('user:join');
+    setData(JSON.parse(cache));
   }, []);
 
   // Fetch cache when in top stage
   React.useEffect(() => {
     server.room.emit(
       'room:conversation:all',
-      { room: data.room },
+      { room: data?.room },
       (response) => {
         server.debug('response:conversation:all', response);
         response.map((item) =>

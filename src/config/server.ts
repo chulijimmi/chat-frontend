@@ -11,8 +11,15 @@ const debug = (stage, log) => {
     : null;
 };
 
+const info = (stage, log) => {
+  return process.env.NODE_ENV === 'development'
+    ? console.info(stage, log)
+    : null;
+};
+
 export default {
   room,
   api,
   debug,
+  info,
 };
