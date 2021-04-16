@@ -11,16 +11,13 @@ import { updateOnlineUser } from '../../state/actions/chatActions';
 import moment from 'moment';
 
 const UserInRoom: FunctionComponent = () => {
-  const [data, setData] = useState<any>();
-  useEffect(() => {
-    const cache = localStorage.getItem('user:join');
-    setData(JSON.parse(cache));
-  }, []);
   const dispatch: AppDispatch = useDispatch();
   const state: RootState = useSelector((state) => state);
   const { chat } = state;
 
   React.useEffect(() => {
+    const cache = localStorage.getItem('user:join');
+    const data = JSON.parse(cache);
     server.room.emit(
       'room:join:logs',
       { user: data?.user, room: data?.room },
