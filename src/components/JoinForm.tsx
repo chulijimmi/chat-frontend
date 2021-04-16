@@ -25,7 +25,6 @@ const JoinFoorm = () => {
   React.useEffect(() => {
     const cache: any = localStorage.getItem('user:join');
     const data = JSON.parse(cache);
-    console.log('data', data);
     if (data?.user?.id) {
       doJoinRoom(data?.user?.userName, data?.room?.roomName);
     }
